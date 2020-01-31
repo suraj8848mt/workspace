@@ -1,16 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+const users = require('./routes/api/user');
+const profile = require('./routes/api/profile');
+const posts = require('./routes/api/user');
+
 const app = express();
 
 // DB config
 const db = require('./config/key').mongoURI;
 
 //connect to MongoDb
-
-
-
-
 mongoose
     .connect(db, {
         useUnifiedTopology: true,
@@ -22,6 +22,12 @@ mongoose
     });
 
 app.get('/', (req, res) => res.send('hello'))
+
+//Use routes
+app.use('/api/user', users)
+app.use('/api/profile', profile)
+app.use('/api/posts', posts)
+
 
 const port = process.env.PORT || 5000;
 
