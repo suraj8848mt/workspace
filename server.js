@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 
 
 const users = require('./routes/api/user');
@@ -27,7 +28,11 @@ mongoose
         console.log("DB Connection Error: ${err.message}");
     });
 
-app.get('/', (req, res) => res.send('hello'))
+// passport middleware
+app.use(passport.initialize());
+
+// passport Config
+require('./config/passport')(passport);
 
 //Use routes
 app.use('/api/user', users)
